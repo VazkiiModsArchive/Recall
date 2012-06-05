@@ -14,17 +14,53 @@ import net.minecraft.src.vazkii.updatemanager.UMCore;
 
 public class mod_Recall extends BaseMod implements IUpdateManager, IUMAdvanced{
 
-	public mod_Recall() {
-		UMCore.addMod(this);
-		ModLoader.setInGUIHook(this, true, true);
-		ModLoader.setInGameHook(this, true, false);
-	}
-
 	public String getVersion() {
-		return "by Vazkii. Version [1.0] for 1.2.5";
+		return "by Vazkii. Version [1.0.1] for 1.2.5";
+	}
+	
+	public String getPriorities(){
+		return "after:mod_WirelessRedstoneCore";
 	}
 
 	public void load() {
+		UMCore.addMod(this);
+		ModLoader.setInGUIHook(this, true, true);
+		ModLoader.setInGameHook(this, true, false);
+		if(!oldschoolMode){
+			for(int i=0; i<16; i++){
+				if(ModLoader.isModLoaded("mod_WirelessRedstoneCore")){
+		        ModLoader.addRecipe(new ItemStack(rScroll, 1, i), new Object[] {
+		            "ESE", "DPD", "ESE", Character.valueOf('E'), WirelessRedstoneCore.retherPearl, Character.valueOf('S'), Item.stick, Character.valueOf('P'), Item.paper, Character.valueOf('D'), new ItemStack(Item.dyePowder, 1, BlockCloth.getBlockFromDye(i))
+		        });
+		        ModLoader.addRecipe(new ItemStack(rBindstone, 1, i), new Object[] {
+		            "ESE", "DSD", "ESE", Character.valueOf('E'), WirelessRedstoneCore.retherPearl, Character.valueOf('S'), Block.stone, Character.valueOf('D'), new ItemStack(Item.dyePowder, 1, BlockCloth.getBlockFromDye(i))
+		        });
+				}else{
+			        ModLoader.addRecipe(new ItemStack(rScroll, 1, i), new Object[] {
+			            "ESE", "DPD", "ESE", Character.valueOf('E'), Item.enderPearl, Character.valueOf('S'), Item.stick, Character.valueOf('P'), Item.paper, Character.valueOf('D'), new ItemStack(Item.dyePowder, 1, BlockCloth.getBlockFromDye(i))
+			        });
+			        ModLoader.addRecipe(new ItemStack(rBindstone, 1, i), new Object[] {
+			            "ESE", "DSD", "ESE", Character.valueOf('E'), Item.enderPearl, Character.valueOf('S'), Block.stone, Character.valueOf('D'), new ItemStack(Item.dyePowder, 1, BlockCloth.getBlockFromDye(i))
+			        });
+				}
+			}
+			} else {
+				for(int i=0; i<16; i++){
+			        ModLoader.addRecipe(new ItemStack(rScroll, 1, i), new Object[] {
+			            " S ", "DP ", " S ", Character.valueOf('S'), Item.stick, Character.valueOf('P'), Item.paper, Character.valueOf('D'), new ItemStack(Item.dyePowder, 1, BlockCloth.getBlockFromDye(i))
+			        });
+			        ModLoader.addRecipe(new ItemStack(rScroll, 1, i), new Object[] {
+			            " S ", " PD", " S ", Character.valueOf('S'), Item.stick, Character.valueOf('P'), Item.paper, Character.valueOf('D'), new ItemStack(Item.dyePowder, 1, BlockCloth.getBlockFromDye(i))
+			        });
+			        ModLoader.addRecipe(new ItemStack(rBindstone, 1, i), new Object[] {
+			            "SSS", "SDS", "SSS", Character.valueOf('S'), Block.cobblestone, Character.valueOf('D'), new ItemStack(Item.dyePowder, 1, BlockCloth.getBlockFromDye(i))
+			        });
+				}
+			}
+		for(int i=0; i<16; i++)
+	        ModLoader.addRecipe(new ItemStack(rReturnScroll, 1, i), new Object[] {
+	            "E", "S", "E", Character.valueOf('E'), Item.eyeOfEnder, Character.valueOf('S'), new ItemStack(rScroll, 1, i)
+	        });
 	}
 	
 	public boolean onTickInGUI(float f, Minecraft minecraft, GuiScreen guiscreen)
@@ -33,10 +69,12 @@ public class mod_Recall extends BaseMod implements IUpdateManager, IUMAdvanced{
         {
             Container container = ((GuiContainer)guiscreen).inventorySlots;
             List itemList = ((ContainerCreative)container).itemList;
-            	for(int i=0; i<16; i++)
-            		itemList.add(new ItemStack(rScroll, 1, i));
             	for(int i=0; i<16; i++)        	
             		itemList.add(new ItemStack(rBindstone, 1, i));
+            	for(int i=0; i<16; i++)
+            		itemList.add(new ItemStack(rScroll, 1, i));
+            	for(int i=0; i<16; i++) 
+            		itemList.add(new ItemStack(rReturnScroll, 1, i));
         }
         
         lastGuiOpen = guiscreen;
@@ -49,45 +87,6 @@ public class mod_Recall extends BaseMod implements IUpdateManager, IUMAdvanced{
 	
     public boolean onTickInGame(float f, Minecraft minecraft)
     {
-    	if(!hasTicked){
-    		hasTicked = true;
-    		if(!oldschoolMode){
-    			for(int i=0; i<16; i++){
-    				if(ModLoader.isModLoaded("mod_WirelessRedstoneCore")){
-    		        ModLoader.addRecipe(new ItemStack(rScroll, 1, i), new Object[] {
-    		            "ESE", "DPD", "ESE", Character.valueOf('E'), WirelessRedstoneCore.retherPearl, Character.valueOf('S'), Item.stick, Character.valueOf('P'), Item.paper, Character.valueOf('D'), new ItemStack(Item.dyePowder, 1, BlockCloth.getBlockFromDye(i))
-    		        });
-    		        ModLoader.addRecipe(new ItemStack(rBindstone, 1, i), new Object[] {
-    		            "ESE", "DSD", "ESE", Character.valueOf('E'), WirelessRedstoneCore.retherPearl, Character.valueOf('S'), Block.stone, Character.valueOf('D'), new ItemStack(Item.dyePowder, 1, BlockCloth.getBlockFromDye(i))
-    		        });
-    				}else{
-    			        ModLoader.addRecipe(new ItemStack(rScroll, 1, i), new Object[] {
-    			            "ESE", "DPD", "ESE", Character.valueOf('E'), Item.enderPearl, Character.valueOf('S'), Item.stick, Character.valueOf('P'), Item.paper, Character.valueOf('D'), new ItemStack(Item.dyePowder, 1, BlockCloth.getBlockFromDye(i))
-    			        });
-    			        ModLoader.addRecipe(new ItemStack(rBindstone, 1, i), new Object[] {
-    			            "ESE", "DSD", "ESE", Character.valueOf('E'), Item.enderPearl, Character.valueOf('S'), Block.stone, Character.valueOf('D'), new ItemStack(Item.dyePowder, 1, BlockCloth.getBlockFromDye(i))
-    			        });
-    				}
-    			}
-    			for(int i=0; i<16; i++)
-		        ModLoader.addRecipe(new ItemStack(rReturnScroll, 1, i), new Object[] {
-		            "E", "S", "E", Character.valueOf('E'), Item.eyeOfEnder, Character.valueOf('S'), new ItemStack(rScroll, 1, i)
-		        });
-    			} else {
-    				for(int i=0; i<16; i++){
-    			        ModLoader.addRecipe(new ItemStack(rScroll, 1, i), new Object[] {
-    			            " S ", "DP ", " S ", Character.valueOf('S'), Item.stick, Character.valueOf('P'), Item.paper, Character.valueOf('D'), new ItemStack(Item.dyePowder, 1, BlockCloth.getBlockFromDye(i))
-    			        });
-    			        ModLoader.addRecipe(new ItemStack(rScroll, 1, i), new Object[] {
-    			            " S ", " PD", " S ", Character.valueOf('S'), Item.stick, Character.valueOf('P'), Item.paper, Character.valueOf('D'), new ItemStack(Item.dyePowder, 1, BlockCloth.getBlockFromDye(i))
-    			        });
-    			        ModLoader.addRecipe(new ItemStack(rBindstone, 1, i), new Object[] {
-    			            "SSS", "SDS", "SSS", Character.valueOf('S'), Block.cobblestone, Character.valueOf('D'), new ItemStack(Item.dyePowder, 1, BlockCloth.getBlockFromDye(i))
-    			        });
-    				}
-    			}
-    	}
-    	
         if(time-- > 0 && minecraft.currentScreen == null)
         {
             ScaledResolution scaledresolution = new ScaledResolution(minecraft.gameSettings, minecraft.displayWidth, minecraft.displayHeight);
@@ -109,8 +108,6 @@ public class mod_Recall extends BaseMod implements IUpdateManager, IUMAdvanced{
 		0x979797, 0xd9d9d9, 0x3c8eb0, 0xb064d8, 0x0a2b7a, 0x4d2b15, 0x223505,
 		0x790000, 0x000000
 	};
-	
-	private static boolean hasTicked = false;
 	
 	private static GuiScreen lastGuiOpen;
 

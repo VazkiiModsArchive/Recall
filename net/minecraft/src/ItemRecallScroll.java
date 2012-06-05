@@ -17,6 +17,7 @@ public class ItemRecallScroll extends ItemRecallBase {
     {
 		NBTTagCompound nbt = new NBTTagCompound();
 		File file = mod_Recall.getWorldRecallFile(par2World, par1ItemStack.getItemDamage());
+		EntityPlayer player = ModLoader.getMinecraftInstance().thePlayer;
 		try {
 			nbt = CompressedStreamTools.readCompressed(new FileInputStream(file));
 		} catch (FileNotFoundException e) {
@@ -32,10 +33,10 @@ public class ItemRecallScroll extends ItemRecallBase {
 			return par1ItemStack;
 		}
 		
-		nbt.setDouble(new StringBuilder().append(prefixes[par1ItemStack.getItemDamage()]).append("_oldPosX").toString(), par3EntityPlayer.posX);
-		nbt.setDouble(new StringBuilder().append(prefixes[par1ItemStack.getItemDamage()]).append("_oldPosY").toString() , par3EntityPlayer.posY);
-		nbt.setDouble(new StringBuilder().append(prefixes[par1ItemStack.getItemDamage()]).append("_oldPosZ").toString(), par3EntityPlayer.posZ);
-		nbt.setInteger(new StringBuilder().append(prefixes[par1ItemStack.getItemDamage()]).append("_oldDIM").toString(), par3EntityPlayer.dimension);
+		nbt.setDouble(new StringBuilder().append(prefixes[par1ItemStack.getItemDamage()]).append("_oldPosX").toString(), player.posX);
+		nbt.setDouble(new StringBuilder().append(prefixes[par1ItemStack.getItemDamage()]).append("_oldPosY").toString() , player.posY);
+		nbt.setDouble(new StringBuilder().append(prefixes[par1ItemStack.getItemDamage()]).append("_oldPosZ").toString(), player.posZ);
+		nbt.setInteger(new StringBuilder().append(prefixes[par1ItemStack.getItemDamage()]).append("_oldDIM").toString(), player.dimension);
 		try {
 			CompressedStreamTools.writeCompressed(nbt, new FileOutputStream(file));
 		} catch (FileNotFoundException e) {
@@ -51,7 +52,7 @@ public class ItemRecallScroll extends ItemRecallBase {
 			return par1ItemStack;
 		}
 		
-		ModLoader.getMinecraftInstance().thePlayer.setPosition(xPos+0.5, yPos+1.6000000001D, zPos+0.5); //The main reason I use this player getter insted of the parameter is so it's compatible with RedPower deployers and the like.
+		player.setPosition(xPos+0.5, yPos+1.6000000001D, zPos+0.5);
 		Random rand = new Random();
 	      for(int z=0;z<1000;z++)
           	par3EntityPlayer.worldObj.spawnParticle("portal", par3EntityPlayer.posX + (rand.nextDouble() - 0.5D) * (double)par3EntityPlayer.width, (par3EntityPlayer.posY - 2.2000000001D + rand.nextDouble() * (double)par3EntityPlayer.height) - 0.25D, par3EntityPlayer.posZ + (rand.nextDouble() - 0.5D) * (double)par3EntityPlayer.width, (rand.nextDouble() - 0.5D) * 2D, -rand.nextDouble(), (rand.nextDouble() - 0.5D) * 2D);
