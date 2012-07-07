@@ -2,11 +2,12 @@ package net.minecraft.src;
 
 import net.minecraft.src.forge.ITextureProvider;
 
-public abstract class ItemRecallBase extends Item{
+public abstract class ItemRecallBase extends Item {
 
 	public static String[] prefixes = new String[]{
 			"White", "Orange", "Magenta", "Light Blue", "Yellow", "Lime", "Pink", "Gray", "Light Gray", "Cyan", "Purple", "Blue", "Brown", "Green", "Red", "Black"
 	};
+	
 	private String name;
 	
 	public ItemRecallBase(int par1, String name) {
@@ -26,13 +27,17 @@ public abstract class ItemRecallBase extends Item{
         return par2 == 0 ? 0xFFFFFF : mod_Recall.colors[par1];
     }
     
-    public boolean func_46058_c()
+    public boolean requiresMultipleRenderPasses()
     {
         return true;
     }
 	
     public int func_46057_a(int par1, int par2)
     {
-        return par2 > 0 ? mod_Recall.overlayTex : super.func_46057_a(par1, par2);
+        return par2 > 0 ? super.func_46057_a(par1, par2) + 16 : super.func_46057_a(par1, par2);
+    }
+    
+    public String getTextureFile(){
+    	return "/vazkii/recall/sprites.png";
     }
 }

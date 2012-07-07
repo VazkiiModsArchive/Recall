@@ -4,18 +4,16 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 
+import vazkii.um.UpdateManagerMod;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.src.forge.MinecraftForge;
 import net.minecraft.src.forge.MinecraftForgeClient;
-import net.minecraft.src.vazkii.updatemanager.IUMAdvanced;
-import net.minecraft.src.vazkii.updatemanager.IUpdateManager;
-import net.minecraft.src.vazkii.updatemanager.ModType;
-import net.minecraft.src.vazkii.updatemanager.UMCore;
 
-public class mod_Recall extends BaseMod implements IUpdateManager, IUMAdvanced{
+public class mod_Recall extends BaseMod {
 
 	public String getVersion() {
-		return "by Vazkii. Version [1.0.1] for 1.2.5";
+		return "by Vazkii. Version [1.0.2] for 1.2.5";
 	}
 	
 	public String getPriorities(){
@@ -23,7 +21,6 @@ public class mod_Recall extends BaseMod implements IUpdateManager, IUMAdvanced{
 	}
 
 	public void load() {
-		UMCore.addMod(this);
 		ModLoader.setInGUIHook(this, true, true);
 		ModLoader.setInGameHook(this, true, false);
 		if(!oldschoolMode){
@@ -55,12 +52,12 @@ public class mod_Recall extends BaseMod implements IUpdateManager, IUMAdvanced{
 			        ModLoader.addRecipe(new ItemStack(rBindstone, 1, i), new Object[] {
 			            "SSS", "SDS", "SSS", Character.valueOf('S'), Block.cobblestone, Character.valueOf('D'), new ItemStack(Item.dyePowder, 1, BlockCloth.getBlockFromDye(i))
 			        });
+			        ModLoader.addRecipe(new ItemStack(rReturnScroll, 1, i), new Object[] {
+			            "E", "S", "E", Character.valueOf('E'), Item.eyeOfEnder, Character.valueOf('S'), new ItemStack(rScroll, 1, i)
+			        });
 				}
 			}
-		for(int i=0; i<16; i++)
-	        ModLoader.addRecipe(new ItemStack(rReturnScroll, 1, i), new Object[] {
-	            "E", "S", "E", Character.valueOf('E'), Item.eyeOfEnder, Character.valueOf('S'), new ItemStack(rScroll, 1, i)
-	        });
+
 	}
 	
 	public boolean onTickInGUI(float f, Minecraft minecraft, GuiScreen guiscreen)
@@ -87,12 +84,13 @@ public class mod_Recall extends BaseMod implements IUpdateManager, IUMAdvanced{
 	
     public boolean onTickInGame(float f, Minecraft minecraft)
     {
-        if(time-- > 0 && minecraft.currentScreen == null)
+        if(time > 0 && minecraft.currentScreen == null)
         {
             ScaledResolution scaledresolution = new ScaledResolution(minecraft.gameSettings, minecraft.displayWidth, minecraft.displayHeight);
             double d = (double)scaledresolution.getScaledWidth() / 2D;
             int i = (int)(d - (double)(minecraft.fontRenderer.getStringWidth(display) / 2));
             minecraft.fontRenderer.drawStringWithShadow(display, i, scaledresolution.getScaledHeight()/2 - 25, color);
+            --time;
         }
         return true;
     }
@@ -118,38 +116,37 @@ public class mod_Recall extends BaseMod implements IUpdateManager, IUMAdvanced{
 	@MLProp public static int rScrollID = 19732;
 	@MLProp public static int rBindstoneID = 19733;
 	@MLProp public static int rReturnScrollID = 19734;
-	@MLProp public static int rRecallHexagramItemID = 19735;
-	@MLProp public static int recallHexagramID = 181;
 	@MLProp public static boolean oldschoolMode = false;
 	
-	public static int rScrollTex = ModLoader.addOverride("/gui/items.png", "/vazkii/recall/scroll.png");
-	public static int rBindstoneTex = ModLoader.addOverride("/gui/items.png", "/vazkii/recall/bindstone.png");
-	public static int overlayTex = ModLoader.addOverride("/gui/items.png", "/vazkii/recall/overlay.png");
+	public static final Item rScroll = new ItemRecallScroll(rScrollID).setIconIndex(1).setItemName("rScroll");
+	public static final Item rBindstone = new ItemRecallBindstone(rBindstoneID).setIconIndex(0).setItemName("rBindstone");
+	public static final Item rReturnScroll = new ItemRecallReturnScroll(rReturnScrollID).setIconIndex(1).setItemName("rReturnScroll");
 	
-	public static final Item rScroll = new ItemRecallScroll(rScrollID).setIconIndex(rScrollTex).setItemName("rScroll");
-	public static final Item rBindstone = new ItemRecallBindstone(rBindstoneID).setIconIndex(rBindstoneTex).setItemName("rBindstone");
-	public static final Item rReturnScroll = new ItemRecallReturnScroll(rReturnScrollID).setIconIndex(rScrollTex).setItemName("rReturnScroll");
-	
-	public String getModName() {
-		return "Recall";
+	public class UpdateHandler extends UpdateManagerMod {
+		
+		public UpdateHandler(cpw.mods.fml.common.modloader.BaseMod m) {
+			super(m);
+		}
+
+		public String getModName() {
+			return "Recall";
+		}
+
+		public String getChangelogURL() {
+			return "https://dl.dropbox.com/u/34938401/Mods/On%20Topic/Mods/Recall/Changelog.txt";
+		}
+
+		public String getUpdateURL() {
+			return "https://dl.dropbox.com/u/34938401/Mods/On%20Topic/Mods/Recall/Version.txt";
+		}
+
+		public String getModURL() {
+			return "http://www.minecraftforum.net/topic/528166-123-mlforge-vazkiis-mods-ebonapi-last-updated-12512/";
+		}
+		
+    	public String getUMVersion() {
+    		return "1.0.2";
+    	}
+		
 	}
-
-	public String getChangelogURL() {
-		return "https://dl.dropbox.com/u/34938401/Mods/On%20Topic/Mods/Recall/Changelog.txt";
-	}
-
-	public String getUpdateURL() {
-		return "https://dl.dropbox.com/u/34938401/Mods/On%20Topic/Mods/Recall/Version.txt";
-	}
-
-	public String getModURL() {
-		return "http://www.minecraftforum.net/topic/528166-123-mlforge-vazkiis-mods-ebonapi-last-updated-12512/";
-	}
-
-	public ModType getModType() {
-		return ModType.UNDEFINED;
-	}
-	
-
-
 }
