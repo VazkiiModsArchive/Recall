@@ -16,7 +16,9 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.TickRegistry;
 
-@Mod(modid = "recall_Vz", name = "Recall", version = "by Vazkii. Version [2.0] for 1.3.2") @NetworkMod(channels = { "recall_Vz", "recall1_Vz" }, packetHandler = RecallPacketHandler.class, clientSideRequired = true) public class mod_Recall {
+@Mod(modid = "recall_Vz", name = "Recall", version = "by Vazkii. Version [2.0.1] for 1.3.2")
+@NetworkMod(channels = { "recall_Vz", "recall1_Vz" }, packetHandler = RecallPacketHandler.class, clientSideRequired = true)
+public class mod_Recall {
 
 	@Init
 	public void onInit(FMLInitializationEvent event) {

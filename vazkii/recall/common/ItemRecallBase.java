@@ -94,7 +94,8 @@ public class ItemRecallBase extends Item {
 		return cmp.hasKey(name + type + index + "_" + tagName);
 	}
 
-	public enum BindType {
+	public enum BindType
+	{
 		BINDSTONE("recallPoint"), SCROLL("returnPoint");
 
 		private BindType(String s) {
@@ -103,7 +104,8 @@ public class ItemRecallBase extends Item {
 
 		private String name;
 
-		@Override public String toString() {
+		@Override
+		public String toString() {
 			return name;
 		}
 	}

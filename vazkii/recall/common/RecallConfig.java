@@ -7,11 +7,13 @@ import net.minecraftforge.common.Property;
 
 public class RecallConfig extends Configuration {
 
-	//Props Start ============================================================================
+	// Props Start
+	// ============================================================================
 	static boolean oldschoolMode = false;
 	static boolean sharedRecalls = false;
 
-	//Props End ==============================================================================
+	// Props End
+	// ==============================================================================
 
 	public RecallConfig(File file) {
 		super(file);
