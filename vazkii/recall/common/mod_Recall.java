@@ -1,14 +1,17 @@
 package vazkii.recall.common;
 
+import updatemanager.common.ModConverter;
+import vazkii.codebase.common.EnumVazkiiMods;
+import vazkii.codebase.common.IOUtils;
+import vazkii.codebase.common.mod_Vazcore;
+import vazkii.recall.client.RecallTickHandler;
+
 import net.minecraft.src.Block;
 import net.minecraft.src.BlockCloth;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.ModLoader;
-import vazkii.codebase.common.EnumVazkiiMods;
-import vazkii.codebase.common.IOUtils;
-import vazkii.recall.client.RecallTickHandler;
-import vazkii.um.common.ModConverter;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Side;
@@ -16,12 +19,13 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.TickRegistry;
 
-@Mod(modid = "recall_Vz", name = "Recall", version = "by Vazkii. Version [2.0.1] for 1.3.2")
+@Mod(modid = "recall_Vz", name = "Recall", version = "by Vazkii. Version [2.0.2] for 1.4.2")
 @NetworkMod(channels = { "recall_Vz", "recall1_Vz" }, packetHandler = RecallPacketHandler.class, clientSideRequired = true)
 public class mod_Recall {
 
 	@Init
 	public void onInit(FMLInitializationEvent event) {
+		mod_Vazcore.loadedVzMods.add(EnumVazkiiMods.RECALL.getAcronym());
 		new RecallConfig(IOUtils.getConfigFile(EnumVazkiiMods.RECALL));
 		new RecallUpdateHandler(ModConverter.getMod(getClass()));
 

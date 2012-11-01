@@ -3,14 +3,15 @@ package vazkii.recall.common;
 import java.io.File;
 import java.util.List;
 
+import vazkii.codebase.common.CommonUtils;
+import vazkii.codebase.common.EnumVazkiiMods;
+import vazkii.codebase.common.IOUtils;
+
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.NBTTagCompound;
-import vazkii.codebase.common.CommonUtils;
-import vazkii.codebase.common.EnumVazkiiMods;
-import vazkii.codebase.common.IOUtils;
 
 public class ItemRecallBase extends Item {
 
@@ -20,7 +21,7 @@ public class ItemRecallBase extends Item {
 
 	protected ItemRecallBase(int par1, String name) {
 		super(par1);
-		setTabToDisplayOn(CreativeTabs.tabTransport);
+		setCreativeTab(CreativeTabs.tabTransport);
 		setMaxStackSize(1);
 		setHasSubtypes(true);
 		this.name = name;
@@ -48,8 +49,8 @@ public class ItemRecallBase extends Item {
 	}
 
 	@Override
-	public int getColorFromDamage(int par1, int par2) {
-		return par2 == 0 ? 0xFFFFFF : CommonUtils.parseHexString(RecallReference.COLORS[par1].toString());
+	public int func_82790_a(ItemStack par1, int par2) {
+		return par2 == 0 ? 0xFFFFFF : CommonUtils.parseHexString(RecallReference.COLORS[par1.getItemDamage()].toString());
 	}
 
 	@Override

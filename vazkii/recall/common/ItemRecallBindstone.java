@@ -13,7 +13,7 @@ public class ItemRecallBindstone extends ItemRecallBase {
 	}
 
 	@Override
-	public boolean tryPlaceIntoWorld(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
+	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10) {
 		Random r = new Random();
 		saveInt(par2EntityPlayer, RecallConfig.sharedRecalls, par1ItemStack.getItemDamage(), BindType.BINDSTONE, par4, "posX");
 		saveInt(par2EntityPlayer, RecallConfig.sharedRecalls, par1ItemStack.getItemDamage(), BindType.BINDSTONE, par5, "posY");

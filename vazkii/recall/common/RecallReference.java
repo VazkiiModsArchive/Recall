@@ -17,7 +17,7 @@ public class RecallReference {
 	public static final String RETURN_SUCCESS_MESSAGE = "Return Successful!";
 	public static final String RETURN_FAIL_MESSAGE = "Return Failed!";
 
-	public static final String VERSION = "2.0.1";
+	public static final String VERSION = "2.0.2";
 	public static final String UPDATE_URL = "https://dl.dropbox.com/u/34938401/Mods/On%20Topic/Mods/Recall/Version.txt";
 	public static final String CHANGELOG_URL = "https://dl.dropbox.com/u/34938401/Mods/On%20Topic/Mods/Recall/Changelog.txt";
 }
