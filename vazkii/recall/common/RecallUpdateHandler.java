@@ -1,7 +1,9 @@
 package vazkii.recall.common;
 
-import net.minecraft.src.ItemStack;
 import vazkii.codebase.common.VazkiiUpdateHandler;
+
+import net.minecraft.src.ItemStack;
+
 import cpw.mods.fml.common.Mod;
 
 public class RecallUpdateHandler extends VazkiiUpdateHandler {

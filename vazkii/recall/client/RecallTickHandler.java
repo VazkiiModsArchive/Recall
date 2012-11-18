@@ -2,11 +2,13 @@ package vazkii.recall.client;
 
 import java.util.EnumSet;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.src.FontRenderer;
-import net.minecraft.src.ScaledResolution;
 import vazkii.codebase.common.CommonUtils;
 import vazkii.recall.common.RecallReference;
+import net.minecraft.client.Minecraft;
+
+import net.minecraft.src.FontRenderer;
+import net.minecraft.src.ScaledResolution;
+
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
@@ -23,7 +25,8 @@ public class RecallTickHandler implements ITickHandler {
 	}
 
 	@Override
-	public void tickStart(EnumSet<TickType> type, Object... tickData) {}
+	public void tickStart(EnumSet<TickType> type, Object... tickData) {
+	}
 
 	@Override
 	public void tickEnd(EnumSet<TickType> type, Object... tickData) {

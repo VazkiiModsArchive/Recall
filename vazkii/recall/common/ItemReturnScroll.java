@@ -50,8 +50,8 @@ public class ItemReturnScroll extends ItemRecallBase {
 	}
 
 	@Override
-	public int getColorFromDamage(int par1, int par2) {
-		return par2 == 0 ? 0xCCCCCC : super.getColorFromDamage(par1, par2);
+	public int getColorFromItemStack(ItemStack par1, int par2) {
+		return par2 == 0 ? 0xCCCCCC : super.getColorFromItemStack(par1, par2);
 	}
 
 }

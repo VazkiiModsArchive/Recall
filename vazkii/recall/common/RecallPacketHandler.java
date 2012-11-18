@@ -6,28 +6,30 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
-import net.minecraft.src.EntityPlayer;
-import net.minecraft.src.EntityPlayerMP;
-import net.minecraft.src.NetworkManager;
-import net.minecraft.src.Packet250CustomPayload;
 import vazkii.codebase.client.ClientUtils;
 import vazkii.codebase.common.CommonUtils;
 import vazkii.recall.client.EntityRecallFX;
 import vazkii.recall.client.RecallTickHandler;
+
+import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.EntityPlayerMP;
+import net.minecraft.src.INetworkManager;
+import net.minecraft.src.Packet250CustomPayload;
+
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 
 public class RecallPacketHandler implements IPacketHandler {
 
 	@Override
-	public void onPacketData(NetworkManager manager, Packet250CustomPayload packet, Player player) {
+	public void onPacketData(INetworkManager manager, Packet250CustomPayload packet, Player player) {
 		if (!CommonUtils.getSide().isClient()) return;
 
 		if (packet.channel == "recall_Vz") onMessagePacket(manager, packet, player);
 		else onParticlePacket(manager, packet, player);
 	}
 
-	public void onMessagePacket(NetworkManager manager, Packet250CustomPayload packet, Player player) {
+	public void onMessagePacket(INetworkManager manager, Packet250CustomPayload packet, Player player) {
 		DataInputStream dataStream = new DataInputStream(new ByteArrayInputStream(packet.data));
 		try {
 			int color = dataStream.readInt();
@@ -38,7 +40,7 @@ public class RecallPacketHandler implements IPacketHandler {
 		}
 	}
 
-	public void onParticlePacket(NetworkManager manager, Packet250CustomPayload packet, Player player) {
+	public void onParticlePacket(INetworkManager manager, Packet250CustomPayload packet, Player player) {
 		DataInputStream dataStream = new DataInputStream(new ByteArrayInputStream(packet.data));
 		try {
 			int dim = dataStream.readInt();
@@ -74,7 +76,7 @@ public class RecallPacketHandler implements IPacketHandler {
 		packet.data = byteStream.toByteArray();
 		packet.length = packet.data.length;
 
-		mpPlayer.serverForThisPlayer.sendPacketToPlayer(packet);
+		mpPlayer.playerNetServerHandler.sendPacketToPlayer(packet);
 	}
 
 	public static void sendParticlePacket(int color, double x, double y, double z, int dim) {

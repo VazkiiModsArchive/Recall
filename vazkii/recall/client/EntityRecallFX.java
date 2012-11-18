@@ -1,9 +1,10 @@
 package vazkii.recall.client;
 
-import net.minecraft.src.EntityPortalFX;
-import net.minecraft.src.World;
 import vazkii.codebase.client.ColorRGB;
 import vazkii.codebase.common.CommonUtils;
+
+import net.minecraft.src.EntityPortalFX;
+import net.minecraft.src.World;
 
 public class EntityRecallFX extends EntityPortalFX {
 
